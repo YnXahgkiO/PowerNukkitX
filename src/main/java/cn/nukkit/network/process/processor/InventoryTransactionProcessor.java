@@ -454,7 +454,10 @@ public class InventoryTransactionProcessor extends DataPacketProcessor<Inventory
                     return;
                 }
 
-                spear.onSpearStab(player, player.getMovementSpeed());
+                float spearSpeed = player.getRiding() != null
+                        ? (float) player.getRiding().getMotion().length()
+                        : player.getMovementSpeed();
+                spear.onSpearStab(player, spearSpeed);
             }
             default -> log.debug("{} sent invalid item use action type {}", player.getName(), type);
         }
